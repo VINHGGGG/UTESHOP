@@ -1,0 +1,210 @@
+/* ================= KHUNG CHỨA APP TOÀN MÀN HÌNH ================= */
+.pos-app-wrapper {
+    display: flex !important;
+    width: 100% !important;
+    /* Chiều cao bằng đúng 100% vùng trống trừ đi Header */
+    height: calc(100vh - 56px) !important; 
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+    background-color: #f4f6f9; 
+    overflow: hidden !important;
+}
+
+/* ================= CỘT 1: SIDEBAR TÍNH NĂNG (Ghim lề trái) ================= */
+.pos-sidebar {
+    width: 75px !important;
+    min-width: 75px !important;
+    flex-shrink: 0;
+    background-color: #1a252f;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-brand {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  gap: 2px;
+}
+.sidebar-brand span { font-size: 9px; color: #6c757d; font-weight: normal; }
+.sidebar-menu { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 20px; }
+
+.menu-item {
+  background: none; border: none; color: #a0aec0;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 12px 0; width: 100%; cursor: pointer; gap: 4px; transition: all 0.2s;
+}
+.menu-item i { font-size: 1.2rem; }
+.menu-item span { font-size: 11px; }
+.menu-item:hover, .menu-item.active {
+  color: #fff; background-color: #283348; border-left: 4px solid #0dcaf0;
+}
+
+/* ================= CỘT 2: KHU VỰC TRUNG TÂM SẢN PHẨM ================= */
+.pos-main-content {
+    flex: 1 !important; /* Tự động co giãn thông minh nhường chỗ cho hóa đơn */
+    height: 100% !important;
+    overflow-y: auto !important;
+    min-width: 0 !important;
+    padding: 15px !important;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Bộ lọc danh mục */
+.category-filter-bar {
+    display: flex; 
+    gap: 8px; 
+    overflow-x: auto; /* Cho phép cuộn ngang vuốt các nhóm sản phẩm nếu quá dài */
+    padding-bottom: 10px; 
+    margin-bottom: 10px;
+    flex-wrap: nowrap !important; /* 🔴 SỬA TẠI ĐÂY: Đổi từ wrap thành nowrap để các nút nằm trên một hàng ngang, không bị bóp nghẹt */
+    width: 100%;
+}
+.category-filter-bar::-webkit-scrollbar { 
+    display: none; 
+}
+.btn-filter-item {
+    border-radius: 20px !important; 
+    font-size: 12px !important; 
+    font-weight: 600 !important;
+    white-space: nowrap !important; /* Giữ chữ nguyên vẹn không cho rớt dòng */
+    padding: 6px 15px !important;
+    flex-shrink: 0; /* Không cho phép nút bấm bị bóp méo */
+}
+
+/* Vùng cuộn sản phẩm */
+.product-grid-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.product-scroll-container {
+    flex: 1;
+    overflow-y: auto !important; /* Kích hoạt cuộn dọc riêng biệt cho danh sách sản phẩm */
+    max-height: calc(100vh - 160px);
+    padding-right: 5px;
+    scrollbar-width: thin;
+}
+
+/* ⚡ GIẢI PHÁP CANH HÀNG THẲNG TẮP: Đồng bộ cấu trúc Grid của Header và Hàng hóa */
+.pos-table-header, .pos-product-item {
+    display: grid !important;
+    grid-template-columns: 80px 1fr 200px !important; /* Tăng cột cuối lên 200px để giá tiền dài không lo bị kích */
+    align-items: center !important;
+    padding: 12px 20px !important; /* Đồng bộ khoảng đệm hai đầu */
+    box-sizing: border-box !important;
+}
+
+/* Định dạng thanh tiêu đề cột */
+.pos-table-header {
+    background-color: #f1f3f5 !important;
+    color: #495057;
+    font-weight: 700;
+    font-size: 13px;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid #dee2e6;
+}
+
+/* Định dạng từng dòng sản phẩm */
+.pos-product-item {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+.pos-product-item:hover { background-color: #f1f8ff; }
+
+/* Các khối wrapper bên trong hàng hóa */
+.pos-thumb-wrapper {
+    display: flex;
+    justify-content: flex-start; /* Ép ảnh sát lề trái cột 1 */
+    align-items: center;
+    width: 100%;
+}
+.pos-product-thumb { 
+    width: 48px !important;
+    height: 48px !important;
+    object-fit: cover !important;
+    border-radius: 6px;
+    border: 1px solid #eef2f5;
+}
+
+.pos-info-wrapper {
+    padding-left: 10px !important; /* Reset lại để thẳng hàng chữ 'Tên sản phẩm' */
+    overflow: hidden;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+.pos-product-name { font-size: 0.95rem; font-weight: 500; margin: 0; color: #333; }
+
+.pos-action-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Ép giá và nút sát lề phải cột 3 */
+    gap: 15px;
+    width: 100%;
+}
+
+.pos-product-price { white-space: nowrap !important;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-right: 15px !important; }
+
+.btn-add-pos {
+  width: 34px; height: 34px; padding: 0 !important; display: flex !important;
+  align-items: center; justify-content: center; border-radius: 6px !important; flex-shrink: 0;
+}
+
+/* ================= CỘT 3: HÓA ĐƠN BÊN PHẢI (Fix cứng chiều cao, ghim footer) ================= */
+.pos-cart-sidebar {
+    width: 380px !important;
+    min-width: 380px !important; 
+    max-width: 380px !important; /* Khóa cứng không cho phình to */
+    background-color: #fff; 
+    border-left: 1px solid #dee2e6;
+    display: flex !important; 
+    flex-direction: column !important; 
+    height: 100% !important; /* Ăn khít theo chiều cao của .pos-app-wrapper */
+    flex-shrink: 0 !important; /* Tuyệt đối không bị bóp nghẹt */
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden !important;
+}
+
+.cart-items-area { flex: 1 !important;          /* Chiếm trọn không gian trống ở giữa */
+    overflow-y: auto !important;   /* Nếu giỏ hàng quá dài, CHỈ CUỘN riêng vùng này */
+    padding: 15px !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; /* Căn giữa icon giỏ hàng trống */
+    align-items: center !important; }
+
+.cart-footer-area { 
+  padding: 15px !important; 
+    border-top: 1px solid #dee2e6; 
+    background-color: #f8f9fa; 
+    flex-shrink: 0 !important;    /* Thần chú ngăn không cho vùng tính tiền bị bóp nghẹt hay đẩy tràn */
+    width: 100% !important;
+}
+.btn-checkout-pos { height: 50px; font-size: 1.1rem !important; border-radius: 8px !important; }
+
+/* ================= IN HÓA ĐƠN ================= */
+.print-receipt-section { display: none; }
+@media print {
+  body * { visibility: hidden; }
+  .print-receipt-section, .print-receipt-section * { visibility: visible; display: block !important; }
+  .print-receipt-section {
+    position: absolute; left: 0; top: 0; width: 100%; max-width: 80mm;
+    font-family: 'Courier New', Courier, monospace; font-size: 12px; color: #000; padding: 10px;
+  }
+}

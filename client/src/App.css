@@ -1,0 +1,69 @@
+/* 1. Ép body và html không được cuộn toàn trang */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow-y: auto; /* Khóa thanh cuộn trình duyệt */
+  background-color: #f4f6f9; /* Màu nền xám nhẹ cho giống app */
+  scrollbar-width: thin; 
+}
+
+/* 2. Cấu trúc lại Container của màn hình POS */
+.pos-screen-container {
+  display: flex;
+  height: calc(100vh - 60px); /* 100vh trừ đi chiều cao của Header (ví dụ 60px) */
+  overflow: hidden; /* Không cho rớt nội dung ra ngoài */
+}
+
+/* 3. Cột bên trái (Danh sách sản phẩm) - Cho phép cuộn độc lập */
+.product-list-column {
+  flex: 7; /* Chiếm 7 phần diện tích */
+  overflow-y: auto; /* Thêm thanh cuộn dọc KHI cần */
+  padding: 15px;
+  /* Giấu thanh cuộn cho mượt (Tùy chọn) */
+  scrollbar-width: thin; 
+}
+
+/* 4. Cột bên phải (Hóa đơn / Giỏ hàng) - Cho phép cuộn độc lập */
+.cart-column {
+  flex: 3; /* Chiếm 3 phần diện tích */
+  background-color: #fff;
+  border-left: 1px solid #ddd;
+  display: flex;
+  flex-direction: column; /* Để đẩy nút Thanh toán luôn nằm dưới cùng */
+  height: 100%;
+}
+
+.cart-items-area {
+  flex-grow: 1; /* Tự động giãn ra chiếm hết chỗ trống */
+  overflow-y: auto; /* Cuộn danh sách món ăn/SP */
+  padding: 15px;
+}
+
+.cart-footer-area {
+  padding: 15px;
+  border-top: 1px solid #eee;
+  /* Khu vực tính tổng tiền và nút Thanh toán sẽ luôn bị ghim ở đáy cột này */
+}
+
+
+            @media print {
+              .print-receipt-section {
+              position: absolute !important;
+              left: 0 !important;
+              top: 0 !important;
+              width: 74mm !important; /* Đảm bảo vừa vặn lòng in của cuộn giấy K80 */
+              padding: 8mm 3mm !important; /* Tạo khoảng trống lề trên dưới lề trái phải cân đối */
+              box-sizing: border-box !important;
+  }
+              /* Cấu hình đặc biệt cho bảng hàng hóa hiển thị dạng bảng chuẩn */
+              .print-receipt-section table {
+                display: table !important;
+              }
+              .print-receipt-section tr {
+                display: table-row !important;
+              }
+              .print-receipt-section th, .print-receipt-section td {
+                display: table-cell !important;
+              }
+            }
